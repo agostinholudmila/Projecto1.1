@@ -57,10 +57,22 @@ app.put('/livros/:id',(req, res) => {
 
 app.patch('/livros/:id', (req, res) => {
     const id = parseInt(req.params.id);
-    const atualizacoes = req.body;
-    livros[id] = { ...livros[id], ...atualizacoes };
-    logger.info('Actualizado parcialmente com sucesso');
-    res.json(livros[id]);
+    const livro = livros.find(l => l.id===id);//procurar o id
+
+    if (!livro){
+        return res.status(404).json({ erro: "Livro não encontrado" });
+    }
+        
+    if(req.body.titulo) {
+        livro.titulo=req.body.titulo;
+    }
+    
+    if(req.body.titulo){
+        livro.autor=req.body.autor;
+    }
+        logger.info('Actualizado com sucesso');
+        res.json(livro);
+   
 });
 
 app.delete('/livros/:id',(req,res) => {
