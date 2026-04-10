@@ -18,9 +18,10 @@ app.get('/livros', (req, res) => {
 });
 
 app.get('/livros/:id', (req, res) => {
-    const livro=livros[req.params.id -1];
+    const livro=livros.find(l => l.id === parseInt(req.params.id));
     if (!livro) {
-        return res.status(404).json({ erro: "não encontrado" });}
+        return res.status(404).json({ erro: "não encontrado" });
+    }
         logger.info('pedido recebido na rota /livros/:id')
         
         res.json(livro);
@@ -67,7 +68,7 @@ app.patch('/livros/:id', (req, res) => {
         livro.titulo=req.body.titulo;
     }
     
-    if(req.body.titulo){
+    if(req.body.autor){
         livro.autor=req.body.autor;
     }
         logger.info('Actualizado com sucesso');
@@ -76,9 +77,18 @@ app.patch('/livros/:id', (req, res) => {
 });
 
 app.delete('/livros/:id',(req,res) => {
-    const id=req.params.id;
-    livros.splice(id, 1);
+    const id= parseInt(req.params.id);
+
+    const index = livros.findIndex(livro => livro.id === id);
+
+     if (index === -1) {
+        return res.status(404).json({ erro: "Livro não encontrado" });
+    }
+
+    livros.splice(index, 1);
+
     logger.info('apagado com sucesso');
+    
     res.json({message: "Sucesso"});
 });
 app.listen(PORT, () => logger.info(`esta a rodar na porta ${PORT}`));
