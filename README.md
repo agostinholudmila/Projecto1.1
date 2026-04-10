@@ -23,12 +23,12 @@
 ### GET /livros
 Retorna informação básica da API.
 
-[{"titulo": "O Alquimista", "autor": "Paulo Coelho"}]
+[{"id": 1,"titulo": "O Alquimista", "autor": "Paulo Coelho"}]
 
 ### POST /livros
 Cria um novo livro.
 
-[{"titulo":"biblia","autor":"Deus"}]
+[{"id": 1,"titulo":"biblia","autor":"Deus"}]
 
 ### PUT /livros/:id
 Actualiza todo o recurso.
@@ -38,7 +38,7 @@ Actualiza todo o recurso.
 ### PATCH /livros/:id
 Actualiza parcialmente o recurso.
 
-{"titulo": "Titulo Atualizado", "autor": "Paulo Coelho"}
+{"id": 1,"titulo": "Titulo Atualizado", "autor": "Paulo Coelho"}
 
 ### DELETE /livros/:id
 Apaga um recurso.
