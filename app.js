@@ -8,6 +8,7 @@ app.use(express.json());
 
 const PORT=process.env.PORT;
 const livros=[];
+let proximoId= 1;
 
 
 app.get('/livros', (req, res) => {
@@ -16,9 +17,15 @@ app.get('/livros', (req, res) => {
 });
 
 app.post('/livros' , (req, res) => {
-    const livro =req.body;
+    const livro = {
+        id:proximoId++,
+        titulo:req.body.titulo,
+        autor:req.body.autor
+    };
     livros.push(livro);
+
     logger.info('criado na /livros')
+    
     res.status(201).json(livro);
 });
 
