@@ -41,11 +41,18 @@ app.post('/livros' , (req, res) => {
 });
 
 app.put('/livros/:id',(req, res) => {
-    const livro =req.body;//receber livro no body
-    const id=parseInt(req.params.id);
-    livros.splice(id, 1, livro);
-    logger.info('Actualizado com sucesso');
-    res.json({message: "Sucesso"});
+    const id = parseInt(req.params.id);
+    const livro =livros.find(l => l.id===id);//procurar o id
+
+    if (livro){ 
+        livro.titulo=req.body.titulo;
+        livro.autor=req.body.autor;
+
+        logger.info('Actualizado com sucesso');
+        return res.json(livro);
+    }
+    res.status(404).json({ erro: "Livro não encontrado" });
+    
 });
 
 app.patch('/livros/:id', (req, res) => {
