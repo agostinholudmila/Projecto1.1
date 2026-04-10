@@ -10,7 +10,11 @@ format: winston.format.combine(
 ),
 //o logger precisa saber para onde enviar os logs. Isso chama-se transport no winston.
 transports: [
-    new winston.transports.Console()
+    new winston.transports.Console(),
+
+    new winston.transports.File({
+      filename: "logs/app.log"
+    })
 ]
 });
 export default logger ;//não tem destino definido — ele só disponibiliza o logger para qualquer ficheiro que queira importá-lo.
