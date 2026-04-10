@@ -13,8 +13,19 @@ let proximoId= 1;
 
 app.get('/livros', (req, res) => {
     logger.info('pedido recebido na rota /livros')
+    
     res.json(livros)
 });
+
+app.get('/livros/:id', (req, res) => {
+    const livro=livros[req.params.id -1];
+    if (!livro) {
+        return res.status(404).json({ erro: "não encontrado" });}
+        logger.info('pedido recebido na rota /livros/:id')
+        
+        res.json(livro);
+});
+
 
 app.post('/livros' , (req, res) => {
     const livro = {
